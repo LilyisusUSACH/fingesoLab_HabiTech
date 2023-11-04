@@ -6,7 +6,7 @@ Software necesario para funcionamiento:
 <ol>
 <li>Maven 3.9.5</li>
 <li>Jdk 17</li>
-<li>Postgresql 16.0.1</li>
+<li>Postgresql 16.0.1 poner password : 123456 </li>
 <li>Spring boot 3.1.5 con dependencias :</li>
 </ol>
 
