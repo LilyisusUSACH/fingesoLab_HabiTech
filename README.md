@@ -3,10 +3,12 @@ Habitech - Solucion de aplicacion web para gestion de gastos comunes en comunida
 Pagina web diseñada para un laboratorio universitario, especificamente para el ramo de fundamentos de ingenieria de software
 
 Software necesario para funcionamiento:
-Maven 3.9.5
-Jdk 17
-Postgresql 16.0.1
-Spring boot 3.1.5 con dependencias :
+<ol>
+<li>Maven 3.9.5</li>
+<li>Jdk 17</li>
+<li>Postgresql 16.0.1</li>
+<li>Spring boot 3.1.5 con dependencias :</li>
+</ol>
   - Lombok
   - Spring Web
   - Spring Data JPA
