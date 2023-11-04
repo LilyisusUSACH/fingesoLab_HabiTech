@@ -9,6 +9,7 @@ Software necesario para funcionamiento:
 <li>Postgresql 16.0.1</li>
 <li>Spring boot 3.1.5 con dependencias :</li>
 </ol>
+
   - Lombok
   - Spring Web
   - Spring Data JPA
