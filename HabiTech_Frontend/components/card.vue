@@ -1,8 +1,17 @@
+<script setup>
+const props = defineProps(['amount', 'vencimiento']);
+
+const formatPrice = (value) => { 
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    };
+
+</script>
+
 <template>
   <v-card class="myCard">
     <v-row>
       <v-col style="max-width: fit-content">
-        <v-card class="superior" prepend-icon="mdi-account" max-width="70">
+        <v-card class="superior" prepend-icon="mdi-bank" max-width="70">
         </v-card>
       </v-col>
       <v-col cols="12" sm="">
@@ -15,32 +24,48 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col style="padding-left: 10%">
-        <h1 class="monto">$ 100.000</h1>
+      <v-col style="padding-left: 7%">
+        <h1 class="monto">$ {{formatPrice(amount)}}</h1>
       </v-col>
     </v-row>
-    <v-row justify="space-around">
-      <v-col cols="8" sm="auto">
+    <v-row class="btns-container" justify="space-around">
+      <v-col cols="7" sm="auto">
         <v-btn class="btns" color="red">Ver detalle</v-btn>
       </v-col>
       <v-col cols="4" sm="auto">
-        <v-btn class="btns" color="green">Pagar</v-btn>
+        <v-btn class="btns" color="green" style="margin">Pagar</v-btn>
       </v-col>
     </v-row>
-    <v-row align= "end" style="height: 3vh;">
+    <v-row align= "end" style="height: 3.5vh;">
       <v-col>
-        <hr />
-        <h1 class= "monto" style="font-weight: lighter !important; color: #5e5e5e !important; font-size: clamp(10px, 2vw, 2vh);">Fecha de vencimiento: 15/11/2023</h1>
+        <v-divider></v-divider>
+
+        <h1 class= "monto" style="font-weight: lighter !important; color: #5e5e5e !important; font-size: clamp(10px, 2vw, 2vh);">Fecha de vencimiento: {{vencimiento}}</h1>
       </v-col>
     </v-row>
   </v-card>
 </template>
 
 <style>
+
 .btns {
   min-height: 7vh;
   width: fit-content;
 }
+
+@media only screen and (max-width: 330px){
+  .btns-container{
+    justify-content: start !important;
+  }
+
+  .btns {
+  min-height: 7vh;
+  width: fit-content;
+  font-size: x-small;
+  }
+}
+
+
 .myCard {
   overflow: initial;
   margin-top: 20px !important;
@@ -54,6 +79,9 @@
   padding: 20px;
   z-index: 0;
   border-radius: 10px;
+
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.14), 0 0 0 0 transparent, 0 0 0 0 transparent;
+
 }
 .superior {
   background-color: #4caf50 !important;
@@ -62,6 +90,7 @@
   margin-top: -36px !important;
   border-radius: 4px !important;
   overflow: hidden !important;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)!important
 }
 
 .monto {

@@ -1,24 +1,18 @@
-<script></script>
+<script>
+
+
+</script>
 
 <template>
   <v-layout class="hpage">
     <v-container>
-      <v-app-bar color="transparent" elevation="0" style="padding:0 5vw 0 10vw;">
-        <v-btn icon="mdi-home"></v-btn>
-
-        <template v-slot:append>
-          <v-btn icon="mdi-bell"></v-btn>
-          <v-btn icon="mdi-message"></v-btn>
-          <v-btn icon="mdi-account"></v-btn>
-
-        </template>
-      </v-app-bar>
+      <navBar drawer="!drawer"></navBar>
       <v-main>
         <div >
           <v-row> </v-row>
           <v-row justify="center">
             <v-col cols="auto">
-              <card> </card>
+              <card amount="15000000000" vencimiento="12/11/2023"> </card>
             </v-col>
           </v-row>
         </div>
@@ -31,5 +25,11 @@
 .hpage {
   background-color: #f8f9fc !important;
   height: 100vh;
+}
+.navBar{
+  z-index: -1;
+}
+.sideBar{
+  z-index: 100;
 }
 </style>
