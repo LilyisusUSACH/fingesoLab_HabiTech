@@ -1,5 +1,5 @@
 <script>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export default {
   data() {
@@ -7,7 +7,16 @@ export default {
       drawer: null,
     };
   },
-  
+  setup() {
+    const mobile = false;
+    
+    return {
+      mobile,
+    };
+  },
+  mounted() {
+    this.mobile = window.innerWidth<1280;
+  },
 };
 </script>
 
@@ -47,7 +56,7 @@ export default {
 
     <template v-slot:prepend>
       <v-app-bar-nav-icon
-        v-if="true"
+        v-if="mobile"
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
     </template>
