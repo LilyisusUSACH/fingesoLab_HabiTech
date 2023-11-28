@@ -11,7 +11,8 @@ const formatPrice = (value) => {
   <v-card class="myCard">
     <v-row>
       <v-col style="max-width: fit-content">
-        <v-card class="superior" prepend-icon="mdi-bank" max-width="70">
+        <v-card class="superior" prepend-icon="mdi-bank" width="70" height="70">
+
         </v-card>
       </v-col>
       <v-col cols="12" sm="">
@@ -30,10 +31,10 @@ const formatPrice = (value) => {
     </v-row>
     <v-row class="btns-container" justify="space-around">
       <v-col cols="7" sm="auto">
-        <v-btn class="btns" color="red">Ver detalle</v-btn>
+        <v-btn class="btns" style="border-color: #F44336 !important" color="red">Ver detalle</v-btn>
       </v-col>
       <v-col cols="4" sm="auto">
-        <v-btn class="btns" color="green" style="margin">Pagar</v-btn>
+        <v-btn class="btns" style="border-color: #4CAF50 !important" color="green">Pagar</v-btn>
       </v-col>
     </v-row>
     <v-row align= "end" style="height: 3.5vh;">
@@ -49,7 +50,9 @@ const formatPrice = (value) => {
 <style>
 
 .btns {
-  min-height: 7vh;
+  min-height: fit-content;
+  border-top: 10px solid;
+  border-bottom: 10px solid;
   width: fit-content;
 }
 
@@ -90,7 +93,8 @@ const formatPrice = (value) => {
   margin-top: -36px !important;
   border-radius: 4px !important;
   overflow: hidden !important;
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)!important
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)!important;
+  padding-top: 5px;  
 }
 
 .monto {
