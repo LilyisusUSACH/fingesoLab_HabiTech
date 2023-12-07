@@ -1,6 +1,5 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
-import com.IndustrialesComunes.HabiTech.Models.userTypes.ExtraUnidad;
 import com.IndustrialesComunes.HabiTech.Models.userTypes.Residente;
 import jakarta.persistence.*;
 import lombok.Getter;

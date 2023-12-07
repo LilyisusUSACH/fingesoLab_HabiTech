@@ -2,11 +2,11 @@ package com.IndustrialesComunes.HabiTech.Models;
 
 // Aca se debe definir como funciona un usuario
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ import lombok.ToString;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name ="rol")
 
-@ToString @EqualsAndHashCode
+@EqualsAndHashCode @ToString
 public abstract class User{
 
     @Id
@@ -31,9 +31,9 @@ public abstract class User{
     @Getter @Setter @Column(name = "email")
     private String email;
 
-    @OneToOne(mappedBy = "usuario")
-    @PrimaryKeyJoinColumn
-    private Password password;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="password_id")
+    public Password password;
 
 
     private void registrarse(){}
@@ -51,6 +51,5 @@ public abstract class User{
     public void verMensajes(){}
 
     public void enviarMensaje(){}
-
 
 }

@@ -1,26 +1,29 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "password")
 @ToString
+@Getter @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Password{
 
     @Id
-    @OneToOne
-    @MapsId
-    @JoinColumn(name="usuario_id")
-    private User usuario;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Getter @Setter @Column(name = "id")
+    public long id;
 
     @Getter
-    @Column(name = "password")
-    private String password;
+    @Column(name = "pass")
+    public String pass;
+
+    public Password(User usuario, String password) {
+        this.pass = password;
+    }
 
     public Boolean samePassword(String pass){
 

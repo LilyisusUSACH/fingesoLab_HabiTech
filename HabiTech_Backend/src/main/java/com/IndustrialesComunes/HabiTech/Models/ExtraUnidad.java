@@ -1,4 +1,4 @@
-package com.IndustrialesComunes.HabiTech.Models.userTypes;
+package com.IndustrialesComunes.HabiTech.Models;
 
 import com.IndustrialesComunes.HabiTech.Models.Comunnity;
 import com.IndustrialesComunes.HabiTech.Models.Unidad;
