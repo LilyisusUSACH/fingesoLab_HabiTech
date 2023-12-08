@@ -17,6 +17,10 @@ public class Password{
     @Getter @Setter @Column(name = "id")
     public long id;
 
+    @OneToOne(mappedBy = "password")
+    @JsonIgnore
+    public User usuario;
+
     @Getter
     @Column(name = "pass")
     public String pass;
@@ -26,10 +30,14 @@ public class Password{
     }
 
     public Boolean samePassword(String pass){
-
         return true; //this.password.equals(pass);
     }
     public void setPassword(String pass) {
        // this.password = pass;
+    }
+
+    @Override
+    public String toString() {
+        return "Password{" + pass + "}";
     }
 }

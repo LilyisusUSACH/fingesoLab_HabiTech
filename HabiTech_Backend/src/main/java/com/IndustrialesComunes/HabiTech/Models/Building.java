@@ -26,7 +26,7 @@ public class Building{
 
     @ManyToOne
     @JoinColumn(name = "community_id")
-    private Comunnity community;
+    private Community community;
 
     @OneToMany(mappedBy = "edificio")
     private List<Unidad> unidades;

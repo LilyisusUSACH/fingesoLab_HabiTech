@@ -25,6 +25,13 @@ public class UserDataModelImplement implements UserDataModel {
     }
 
     @Override
+    @Transactional
+    public User getUsuario(long id) {
+        String query = "FROM User Where id = :id";
+        return (User) entityManager.createQuery(query).setParameter("id", id).getSingleResult();
+    }
+
+    @Override
     public void eliminar(Long id) {
 
     }

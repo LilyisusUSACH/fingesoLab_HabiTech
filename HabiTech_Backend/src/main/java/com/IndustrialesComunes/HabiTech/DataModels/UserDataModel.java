@@ -7,10 +7,14 @@ import java.util.List;
 
 public interface UserDataModel {
     // Aca se debe definir como se conecta el usuario a la base de datos de manera general
-        List<User> getUsuarios();
+    List<User> getUsuarios();
+    User getUsuario(long id);
+    void registrar(User user);
 
-        void eliminar(Long id);
+    // falta implementar
 
-        void registrar(User user);
+    void eliminar(Long id);
+
+
 
 }

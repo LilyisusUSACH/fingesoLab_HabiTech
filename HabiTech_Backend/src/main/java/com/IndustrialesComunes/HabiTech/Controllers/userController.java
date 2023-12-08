@@ -1,10 +1,10 @@
 package com.IndustrialesComunes.HabiTech.Controllers;
 
 import com.IndustrialesComunes.HabiTech.DataModels.UserDataModel;
-import com.IndustrialesComunes.HabiTech.Models.Password;
 import com.IndustrialesComunes.HabiTech.Models.User;
 import com.IndustrialesComunes.HabiTech.Models.userTypes.Residente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,19 @@ public class userController {
 
     @RequestMapping(value = "api/", method = RequestMethod.GET)
     public String getApi(){
-        return "aaaaaaaa";
+        return " ";
+    }
+
+
+    // Cambiar todo lo posible a responseEntity despues
+    @RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.GET)
+    @Transactional
+    public ResponseEntity<User> getUsuario(@PathVariable Long id) {
+        try{
+            return ResponseEntity.ok().body(userDM.getUsuario(id));
+        } catch (Exception e){ // if e == no encontrado
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @RequestMapping(value = "api/usuarios", method = RequestMethod.GET)
@@ -30,7 +42,6 @@ public class userController {
     @RequestMapping(value = "api/usuarios", method = RequestMethod.POST)
     @Transactional
     public String registrarUsuario(@RequestBody Residente usuario) {
-
         userDM.registrar(usuario);
         return usuario.toString();
     }

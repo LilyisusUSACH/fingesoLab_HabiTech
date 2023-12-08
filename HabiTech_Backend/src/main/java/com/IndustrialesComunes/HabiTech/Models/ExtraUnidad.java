@@ -1,7 +1,5 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
-import com.IndustrialesComunes.HabiTech.Models.Comunnity;
-import com.IndustrialesComunes.HabiTech.Models.Unidad;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

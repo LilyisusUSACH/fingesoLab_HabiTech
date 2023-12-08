@@ -1,6 +1,7 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,9 +27,27 @@ public class Fondos{
 
     @ManyToOne
     @JoinColumn(name = "community_id")
-    private Comunnity community;
+    @JsonIgnore
+    private Community community;
+
+    public Fondos(){
+        this.value = 0;
+    }
+    public Fondos(String nameFondo, int value, Community community) {
+        this.nameFondo = nameFondo;
+        this.value = value;
+        this.community = community;
+    }
 
     private void descontarFondo(){}
 
     private void añadirFondo(){}
+
+    @Override
+    public String toString() {
+        return "Fondos{" +
+                "nameFondo='" + nameFondo + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }
