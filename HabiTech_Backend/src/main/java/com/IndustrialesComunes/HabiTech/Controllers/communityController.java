@@ -2,6 +2,7 @@ package com.IndustrialesComunes.HabiTech.Controllers;
 
 import com.IndustrialesComunes.HabiTech.DataModels.CommunityDataModel;
 import com.IndustrialesComunes.HabiTech.DataModels.UserDataModel;
+import com.IndustrialesComunes.HabiTech.Models.Building;
 import com.IndustrialesComunes.HabiTech.Models.Community;
 import com.IndustrialesComunes.HabiTech.Models.User;
 import com.IndustrialesComunes.HabiTech.Models.userTypes.Residente;
@@ -27,9 +28,9 @@ public class communityController {
     @RequestMapping(value = "api/comunidades/{id}", method = RequestMethod.GET)
     @Transactional
     public ResponseEntity<Community> getCommunity(@PathVariable Long id) {
-        try{
+        try {
             return ResponseEntity.ok().body(comDM.getCommunity(id));
-        } catch (Exception e){ // if e == no encontrado
+        } catch (Exception e) { // if e == no encontrado
             return ResponseEntity.notFound().build();
         }
     }
@@ -41,6 +42,9 @@ public class communityController {
         return com.toString();
     }
 
-
-
+    @RequestMapping(value = "api/comunidades/{id}/builds", method = RequestMethod.GET)
+    @Transactional
+    public List<Building> getBuildsByCom(@PathVariable Long id) {
+        return comDM.getBuildByID(id);
+    }
 }

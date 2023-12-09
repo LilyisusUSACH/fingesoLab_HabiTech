@@ -15,4 +15,5 @@ public interface CommunityDataModel {
     // falta implementar
     void eliminarCommunity(Long id);
 
+    List<Building> getBuildByID(Long id);
 }

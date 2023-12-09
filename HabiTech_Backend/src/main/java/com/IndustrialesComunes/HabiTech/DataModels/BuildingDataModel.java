@@ -9,7 +9,10 @@ public interface BuildingDataModel {
 
     List<Building> getBuildings();
     Building getBuilding(long id);
-    void addBuilding(Building building);
+
+    Building addBuilding(Building build);
+
+    Building addBuilding(String Ubication, int nOfUnits, int commId);
 
     // falta implementar
     void eliminarBuilding(Long id);

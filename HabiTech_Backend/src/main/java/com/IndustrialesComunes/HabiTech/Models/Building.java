@@ -1,11 +1,16 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
+@ToString
 @Entity
 @Table(name = "condominioOrEdificio")
 public class Building{
@@ -26,6 +31,7 @@ public class Building{
 
     @ManyToOne
     @JoinColumn(name = "community_id")
+    //@JsonBackReference
     private Community community;
 
     @OneToMany(mappedBy = "edificio")
@@ -34,4 +40,20 @@ public class Building{
     @OneToMany(mappedBy = "edificio")
     private List<GastoComun> gastosComunes;
 
+    public Building(String ubication, int nOfUnits, Community community) {
+        this.ubication = ubication;
+        this.nOfUnits = nOfUnits;
+        this.community = community;
+        community.setNOfBuilds(community.getNOfBuilds() + 1);
+        community.addEdificio(this);
+    }
+
+    public Building() {
+
+    }
+
+    @JsonGetter("community_id")
+    public long community(){
+        return this.community.getId();
+    }
 }

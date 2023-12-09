@@ -1,5 +1,6 @@
 package com.IndustrialesComunes.HabiTech.DataModels;
 
+import com.IndustrialesComunes.HabiTech.Models.Building;
 import com.IndustrialesComunes.HabiTech.Models.Community;
 import com.IndustrialesComunes.HabiTech.Models.Fondos;
 import com.IndustrialesComunes.HabiTech.Models.User;
@@ -25,6 +26,7 @@ public class CommunityDataModelImplement implements CommunityDataModel {
     }
 
     @Override
+    @Transactional
     public Community getCommunity(long id) {
         String query = "FROM Community where id = :id";
         return (Community) entityManager.createQuery(query).setParameter("id",id).getSingleResult();
@@ -43,5 +45,11 @@ public class CommunityDataModelImplement implements CommunityDataModel {
     @Override
     public void eliminarCommunity(Long id) {
 
+    }
+
+    @Override
+    public List<Building> getBuildByID(Long id) {
+        Community com = getCommunity(id);
+        return com.getEdificios();
     }
 }
