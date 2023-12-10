@@ -44,10 +44,10 @@ export default {
 
 <style>    
     .accOptions{
-        background-color: rgba(3, 255, 234, 0.3) !important;
+        background-color: rgba(3, 255, 234, 0.85) !important;
     }
     .accOptions:hover{
-        background-color: rgba(3, 255, 234, 0.5) !important;
+        background-color: rgba(3, 255, 234, 0.75) !important;
     }
 
     .mainAcc{

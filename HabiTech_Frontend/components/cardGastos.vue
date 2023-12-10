@@ -1,5 +1,29 @@
 <script setup>
-const props = defineProps(["amount", "vencimiento"]);
+import { list } from 'postcss';
+
+const props = defineProps({
+    codigo: String,
+    nombre: String,
+    lista_desc: Object
+})   
+/*lista_desc :[
+    Desc0: {
+        codigo: '101',
+        descripcion: 'Pago ascensores'
+        monto: 101.000
+    },Desc1: {
+        codigo: '101',
+        descripcion: 'Pago ascensores'
+        monto: 101.000
+    },Desc2: {
+        codigo: '101',
+        descripcion: 'Pago ascensores'
+        monto: 101.000
+    }
+    ]
+*/
+
+
 // CAMBIAR FONDO
 const formatPrice = (value) => {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -8,17 +32,17 @@ const formatPrice = (value) => {
 
 <template>
   <v-card class="myCardGastos">
-    <v-row style>
+    <v-row>
       <v-col>
         <v-card class="superiorGastos" width="fit-content">
           <v-toolbar-items>
-            <div class="tipo-gasto">0300</div>
+            <div class="tipo-gasto">{{codigo}}</div>
             <v-divider
               :thickness="2"
               class="border-opacity-75 mt-n2"
               vertical
             ></v-divider>
-            <div class="tipo-gasto">Gastos de reparacion</div>
+            <div class="tipo-gasto">{{nombre}}</div>
           </v-toolbar-items>
         </v-card>
 
@@ -40,70 +64,36 @@ const formatPrice = (value) => {
         >
         </v-divider>
 
-        <v-row style="padding-top: 7px" justify="space-between">
+        <v-row  v-for="desc in lista_desc" style="padding-top: 7px" justify="space-between">
           <v-col cols="auto" md="3" lg="auto">
-            <div class="text-gastos" style="font-weight: lighter">0301</div>
+            <div class="text-gastos" style="font-weight: lighter">{{desc.codigo}}</div>
           </v-col>
           <v-col cols="5" md="6" lg="9">
             <div class="text-desc" style="font-weight: lighter">
-              Reparacion ascensores
+              {{desc.descripcion}}
             </div>
           </v-col>
           <v-col cols="auto" md="2" lg="auto">
-            <div class="text-gastos" justify="end">$971.439</div>
-          </v-col>
-        </v-row>
-
-        <v-row justify="space-between">
-          <v-col cols="auto" md="3" lg="auto">
-            <div class="text-gastos" style="font-weight: lighter">0301</div>
-          </v-col>
-          <v-col cols="5" md="6" lg="9">
-            <div class="text-desc" style="font-weight: lighter">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse pharetra magna vel accumsan tempor. Nunc rutrum, neque
-              eu rhoncus tempus, sem sem blandit velit, sed egestas neque justo
-              ut nibh. Pellentesque ornare, magna a maximus convallis, lectus
-              augue laoreet quam, id aliquet dui nunc eget nisl. Sed tristique
-              blandit egestas. Cras quis orci elit. Nam lobortis aliquam enim
-              sit amet bibendum. Pellentesque eget metus a lorem gravida
-              sollicitudin. Aenean ac arcu in odio convallis posuere quis quis
-              ex. In eu dictum nisl.
-            </div>
-          </v-col>
-          <v-col cols="auto" md="2" lg="auto">
-            <div class="text-gastos" justify="end">$971.439</div>
-          </v-col>
-        </v-row>
-
-        <v-row justify="space-between">
-          <v-col cols="auto" md="3" lg="auto">
-            <div class="text-gastos" style="font-weight: lighter">0301</div>
-          </v-col>
-          <v-col cols="5" md="6" lg="9">
-            <div class="text-desc" style="font-weight: lighter">
-              Reparacion ascensores
-            </div>
-          </v-col>
-          <v-col cols="auto" md="2" lg="auto">
-            <div class="text-gastos" justify="end">$971.439</div>
+            <div class="text-gastos" justify="end">${{ formatPrice(desc.monto)}}</div>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
     <v-divider
-          class="border-opacity-100"
-          thickness="3"
-          style="z-index: 1 !important"
-        > </v-divider>
-
+      class="border-opacity-100"
+      thickness="3"
+      style="z-index: 1 !important"
+    >
+    </v-divider>
     <v-row justify="end" class="mt-1">
-        <v-col offset-sm="9" offset="3">
-            <div class="text-gastos" justify="end">Monto total</div>
-        </v-col>
-        <v-col cols="auto" md="2" lg="auto">
-            <div class="text-gastos" justify="end">$971.439</div>
-        </v-col>
+      <v-spacer></v-spacer>
+
+      <v-col cols="5" md="3" lg="2" class="mr-n10">
+        <div class="text-gastos" justify="end">Monto total</div>
+      </v-col>
+      <v-col cols="auto" md="2" lg="auto">
+        <div class="text-gastos" justify="end">$971.439</div>
+      </v-col>
     </v-row>
   </v-card>
 </template>
@@ -207,7 +197,34 @@ const formatPrice = (value) => {
 
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14), 0 0 0 0 transparent,
     0 0 0 0 transparent;
+  background: linear-gradient(90deg, #ffff 10%, rgba(0, 0, 0, 0) 10%),
+    linear-gradient(90deg, #dddddd 89%, #ffff 89%);
 }
+
+@media only screen and (min-width: 600px) and (max-width: 1280px) {
+  .myCardGastos {
+    background: linear-gradient(90deg, #ffff 15%, rgba(0, 0, 0, 0) 15%),
+      linear-gradient(90deg, #dddddd 82%, #ffff 80%);
+  }
+  .text-desc{
+    margin-left: -10vw;
+    margin-right: -4vw;
+  }
+} 
+
+@media only screen and (min-width: 420px ) and (max-width: 600px) {
+  .myCardGastos {
+    background: linear-gradient(90deg, #ffff 23%, rgba(0, 0, 0, 0) 23%),
+      linear-gradient(90deg, #dddddd 73%, #ffff 0%);
+  }
+} 
+@media only screen and (min-width: 320px ) and (max-width: 420px) {
+  .myCardGastos {
+    background: linear-gradient(90deg, #ffff 24%, rgba(0, 0, 0, 0) 0%),
+      linear-gradient(90deg, #dddddd 72%, #ffff 0%);
+  }
+} 
+
 .superiorGastos {
   background-color: #e91e63 !important;
   border-color: #e91e63 !important;
