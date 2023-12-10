@@ -31,7 +31,7 @@ const formatPrice = (value) => {
     </v-row>
     <v-row class="btns-container" justify="space-around">
       <v-col cols="7" sm="auto">
-        <v-btn class="btns" style="border-color: #F44336 !important" color="red">Ver detalle</v-btn>
+        <v-btn class="btns" style="border-color: #E91E63 !important" color=#E91E63>Ver detalle</v-btn>
       </v-col>
       <v-col cols="4" sm="auto">
         <v-btn class="btns" style="border-color: #4CAF50 !important" color="green">Pagar</v-btn>
@@ -83,7 +83,7 @@ const formatPrice = (value) => {
   z-index: 0;
   border-radius: 10px;
 
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,.14), 0 0 0 0 transparent, 0 0 0 0 transparent;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.14), 0 0 0 0 transparent, 0 0 0 0 transparent;
 
 }
 .superior {

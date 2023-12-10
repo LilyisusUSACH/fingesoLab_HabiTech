@@ -2,9 +2,13 @@
 import { ref } from "vue";
 
 export default {
+  props: ["Pname", "Pemail", "Prole"],
   data() {
     return {
       drawer: null,
+      name: this.Pname,
+      email: this.Pemail,
+      role: this.Prole,
     };
   },
   setup() {
@@ -21,7 +25,7 @@ export default {
 
 <template>
   <v-navigation-drawer v-model= 'drawer' :expand-on-hover="!mobile" :rail="!mobile" scrim="false" location="left">
-    <sideBar role="residente" name="Joaquin perez monsalva"></sideBar>
+    <sideBar :role=role :name=name></sideBar>
   </v-navigation-drawer>
 
   <v-app-bar color="transparent" elevation="0" style="padding: 0 5vw 0 10vw">
@@ -37,7 +41,11 @@ export default {
     <template v-slot:append>
       <v-btn icon="mdi-bell"></v-btn>
       <v-btn icon="mdi-message"></v-btn>
-      <v-btn icon="mdi-account"></v-btn>
+      <ProfileButton         
+        initials = "PJD"
+        name = "Pedro Juan y Diego"
+        email = "juancruz@gmail.com"
+        ></ProfileButton>
     </template>
   </v-app-bar>
 </template>

@@ -34,17 +34,17 @@ const options = {
 
 <template>
   <v-list lines="one" width="fit-content">
-    <v-list-item
+    <v-list-item class = "avatarIcon"
       prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
       :title="name"
       :subtitle="name.replace(/\s/g, '') + '@gmail.com'"
     ></v-list-item>
   </v-list>
 
-  <v-divider></v-divider>
+  <v-divider :thickness="1" class="border-opacity-50" ></v-divider>
 
   <v-list density="compact" nav>
-    <v-list-item
+    <v-list-item style = "margin-top: 10px;"
       v-for="item in options[role]"
       :key="item.value"
       :prepend-icon="item.icon"
@@ -54,3 +54,9 @@ const options = {
     ></v-list-item>
   </v-list>
 </template>
+
+<style>
+  .v-list-item .v-icon{
+    color: #e49d33;
+  }
+</style>
