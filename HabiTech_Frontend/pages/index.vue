@@ -40,28 +40,26 @@
 <style>
 .layout{
   background: #F2F2F2;
-  display: grid;
-  grid-template-areas: "navbar"
-                        "card-bienvenida" ;
 }
 .card-bienvenida{
-  background: antiquewhite;
+  background: #FFFFFF;
   grid-area: card-bienvenida;
-  display: inline;
+  display: block;
   justify-content: center;
-  padding: 0;
 
 
 }
 .navbar{
-  display: flex;
+ position: relative;
   grid-area: navbar;
+
 }
 .pillars{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background: green;
+  background: #F2F2F2;
+  height: 30%;
 
 }
 .Logo-bienvenida{
