@@ -23,14 +23,16 @@ export default{
 
     <img class="Imglogocard" src="../public/assets/logo_habitech-removebg-preview.png"  alt="error">
 
-      <input class="Inputs" type="text" v-model="rut" placeholder="Rut">
+      <div class="input-container">
+      <input class="input" type="text" v-model="rut" placeholder="Rut">
+      </div>
 
-
-      <input class="Inputs" type="text" v-model="pass" placeholder="Contraseña">
-
+      <div class="input-container">
+      <input class="input" type="text" v-model="pass" placeholder="Contraseña">
+      </div>
       <v-btn class="buttonConfirm"> INGRESAR</v-btn>
-      <router-link to="/register"><p><strong>¿Eres Nuevo?</strong> </p></router-link>
-      <router-link to="/restorePassword"><p><strong>¿Olvidaste tu contraseña?</strong></p></router-link>
+      <router-link to="/register" style="color: black; text-decoration: none"><p><strong>¿Eres Nuevo?</strong> </p></router-link>
+      <router-link to="/restorePassword" style="color: black; text-decoration: none"><p><strong>¿Olvidaste tu contraseña?</strong></p></router-link>
 
 
       <!--La leyenda del final-->
@@ -62,6 +64,8 @@ export default{
 .buttonConfirm{
   text-align: center;
   background-color: #4BC850;
+  width: 40%;
+  align-self: center;
 
 }
 .Imglogocard{
@@ -89,13 +93,19 @@ export default{
   justify-self: center;
   align-self: center;
 }
-.Inputs{
+.input-container{
+  position: relative;
+  display: flex;
+}
+.input{
   background-color: #F2F2F2;
   display: flex;
-  width: 60%;
   margin:0;
-  padding: 0;
-  transform: translateY(-50%);
+  background-image: url("../public/assets/user-rounded-svgrepo-com.svg");
+  background-size: 20px 20px;
+  background-position: 10px center;
+  background-repeat: no-repeat;
+  padding-left: 40px;
 
 }
 
