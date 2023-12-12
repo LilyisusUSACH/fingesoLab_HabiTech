@@ -2,6 +2,8 @@
 const route = useRoute();
 console.log(route.params.id);
 
+
+
 const lista = [
     {
         codigo: '0302',
