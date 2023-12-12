@@ -1,7 +1,25 @@
 <script setup>
 const route = useRoute();
 console.log(route.params.id);
+
+const lista = [
+    {
+        codigo: '0302',
+        descripcion:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pharetra magna vel accumsan tempor. Nunc rutrum, nequeeu rhoncus tempus, sem sem blandit velit.",
+        monto: 101000
+    },
+    {
+        codigo: '0305',
+        descripcion: 'Pago ascensores',
+        monto: 101000
+    },{
+        codigo: '0309',
+        descripcion: 'Pago ascensores',
+        monto: 101000
+    }
+  ]
 </script>
+
 <template>
   <v-layout class="hpageDeuda">
     <v-container>
@@ -20,10 +38,9 @@ console.log(route.params.id);
         </v-row>
         <v-row justify="center">
           <div height="50px"></div>
-          <CardGastos amount="1000" vencimiento="10"></CardGastos>
-          <CardGastos amount="1000" vencimiento="10"></CardGastos>
-          <CardGastos amount="1000" vencimiento="10"></CardGastos>
-
+          <CardGastos codigo="0300" nombre="Gastos de reparacion" 
+          :lista_desc=lista 
+          ></CardGastos>
         </v-row>
       </v-main>
     </v-container>
@@ -32,6 +49,7 @@ console.log(route.params.id);
 <style>
 .hpageDeuda{
   background-color: #e1e3e7 !important;
+  min-height: 100vh;
   height: 100%;
 }
 </style>
