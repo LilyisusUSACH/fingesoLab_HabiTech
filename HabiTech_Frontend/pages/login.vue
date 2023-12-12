@@ -24,9 +24,9 @@ export default {
         />
       </NuxtLink>
     </div>
-    <v-layout class="contenedor" column>
+    <v-layout class="contenedorLogin" column>
       <v-card
-        class="opsContainer align-center"
+        class="opsContainerLogin align-center mt-1 mb-5"
         elevation="5"
         max-width="100%"
         rounded="lg"
@@ -68,8 +68,6 @@ export default {
           style="color: black; text-decoration: none"
           ><p><strong>¿Olvidaste tu contraseña?</strong></p></router-link
         >
-
-        <!--La leyenda del final-->
       </v-card>
     </v-layout>
 
@@ -86,8 +84,9 @@ export default {
 .PrincipalContainer {
   background-color: #f2f2f2;
 }
-.contenedor {
+.contenedorLogin {
   justify-content: center;
+  max-height: 90%;
 }
 .buttonConfirm {
   text-align: center;
@@ -99,8 +98,8 @@ export default {
 .Imglogocard {
   max-width: 250px;
 }
-.opsContainer {
-  max-height: 90%;
+.opsContainerLogin {
+  max-height: 97%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -115,12 +114,12 @@ export default {
 }
 
 @media only screen and (max-width: 900px) {
-  .opsContainer {
-    max-height: 98%;
+  .opsContainerLogin{
+    max-height: 90% !important;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 95%;
+    width: 95% !important;
     border-radius: 20px;
   }
 
@@ -141,18 +140,5 @@ export default {
   justify-self: center;
   align-self: center;
 }
-.input-container {
-  position: relative;
-  display: flex;
-}
-.input {
-  background-color: #f2f2f2;
-  display: flex;
-  margin: 0;
-  background-image: url("../public/assets/user-rounded-svgrepo-com.svg");
-  background-size: 20px 20px;
-  background-position: 10px center;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-}
+
 </style>
