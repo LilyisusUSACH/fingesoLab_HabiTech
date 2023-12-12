@@ -7,65 +7,64 @@ const usuario = {
 </script>
 
 <template>
-  <v-app class="layout">
-    <v-app-bar
-      class="navbar"
-      color="transparent"
-      elevation="1"
-      style="padding: 0 5vw 0 10vw"
-    >
-      <template v-slot:append>
-        <v-btn> Registrarse <v-icon icon="mdi-account"> </v-icon> </v-btn>
-        <v-btn style="margin-right: 3rem">
-          Iniciar Sesion <v-icon icon="mdi-account"> </v-icon
-        ></v-btn>
-      </template>
-    </v-app-bar>
-    <v-main>
-      <!--Aca un div para el contenido de bienvenida-->
-      <v-container class="card-bienvenida">
-        <figure class="Logo-bienvenida" style="width: 100px">
+  <v-layout class="indexPage">
+    <v-container>
+      <v-app-bar :elevation="1">
+        
+        <NuxtLink to="/">
           <img
+            class="Imglogo mt-3"
+            style="display: flex;"
             src="../public/assets/logo_habitech-removebg-preview.png"
-            alt="ERROR"
+            alt="error"
           />
-        </figure>
-        <v-container class="pillars">
-          <div class="Pilar1">
-            Poseemos un software a la vanguardia para la solución de problemas
-          </div>
-          <div class="Pilar2">
-            ¡Administra la comunidad de manera eficiente y eficaz!
-          </div>
-        </v-container>
-      </v-container>
-    </v-main>
-  </v-app>
+        </NuxtLink>
+
+        <template v-slot:prepend>
+
+        <v-btn> iniciar sesion </v-btn>
+        <v-btn> menu </v-btn>
+        </template> 
+      </v-app-bar>
+      <v-main>
+        <v-row class="mt-1" justify="center" align="center">
+          <v-card class="opsContainer" elevation="5"> </v-card>
+        </v-row>
+      </v-main>
+    </v-container>
+  </v-layout>
 </template>
 
 <style>
-.layout {
-  background: #f2f2f2;
+.indexPage {
+  background: radial-gradient(
+        ellipse at 70% 20%,
+        rgba(115, 250, 169, 0.2) 60%,
+        transparent 0
+      )
+      top right,
+    radial-gradient(
+        ellipse at -10% 90%,
+        rgba(187, 62, 232, 0.2) 60%,
+        transparent 0
+      )
+      bottom left;
+  background-size: 75% 75%;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
-.card-bienvenida {
-  background: #ffffff;
-  grid-area: card-bienvenida;
-  display: block;
+
+.opsContainer {
+  background-color: rgba(255, 255, 255, 0.5);
+  min-height: calc(100vh - 110px);
+  width: 95vw;
+  border-radius: 20px;
+}
+
+.contenedor {
   justify-content: center;
 }
-.navbar {
-  position: relative;
-  grid-area: navbar;
-}
-.pillars {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  background: #f2f2f2;
-  height: 30%;
-}
-.Logo-bienvenida {
-  text-align: center;
-  display: flex;
+.Imglogo {
+  width: 100px;
 }
 </style>

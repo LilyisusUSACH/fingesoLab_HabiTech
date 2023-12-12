@@ -6,7 +6,7 @@ export default {
         rut: " ",
         pass: " ",
       },
-      visible: false
+      visible: false,
     };
   },
 };
@@ -15,11 +15,15 @@ export default {
 <template>
   <v-app class="PrincipalContainer">
     <!--Defino lo elementos basados en el figma-->
-    <img
-      class="Imglogo"
-      src="../public/assets/logo_habitech-removebg-preview.png"
-      alt="error"
-    />
+    <div class="align-center" style="width: fit-content; align-self: center;">
+      <NuxtLink to="/">
+        <img
+          class="Imglogo"
+          src="../public/assets/logo_habitech-removebg-preview.png"
+          alt="error"
+        />
+      </NuxtLink>
+    </div>
     <v-layout class="contenedor" column>
       <v-card
         class="opsContainer align-center"
@@ -40,7 +44,6 @@ export default {
             placeholder="Rut"
             prepend-inner-icon="mdi-account"
             variant="solo-filled"
-            v-model="rut"
           ></v-text-field>
         </div>
 
@@ -89,6 +92,7 @@ export default {
 .buttonConfirm {
   text-align: center;
   background-color: #4bc850;
+  color: white;
   width: fit-content;
   align-self: center;
 }
@@ -105,7 +109,7 @@ export default {
 }
 
 @media only screen and (min-width: 600px) and (max-width: 900px) {
-  .footerVue{
+  .footerVue {
     font-size: 2vw !important;
   }
 }
@@ -116,11 +120,11 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 97%;
+    width: 95%;
     border-radius: 20px;
   }
 
-  .footerVue{
+  .footerVue {
     font-size: 3vw;
   }
 }
@@ -131,7 +135,6 @@ export default {
   justify-content: space-evenly;
   align-items: baseline;
   margin-bottom: 1vh;
-
 }
 .Imglogo {
   width: 100px;
