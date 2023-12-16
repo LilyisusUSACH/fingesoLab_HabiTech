@@ -2,20 +2,67 @@
 export default {
   data() {
     return {
-      userData: {
-        rut: " ",
-        pass: " ",
-      },
+      rut: "",
+      pass: "",
       visible: false,
     };
   },
 };
 </script>
+<script setup>
+
+function submit(){
+const {data, pending, error, refresh} = 
+ useFetch(
+  "http://localhost:8080/login",
+  {
+    method: "POST",
+    onRequest({ request, options }) {
+      // Set the request headers
+      options.body = JSON.stringify({
+        username: "207220361",
+        password: "1234",
+      });
+    },
+    onRequestError({ request, options, error }) {
+      // Handle the request errors
+    },
+    onResponse({ request, response, options }) {
+      // Process the response data
+      console.log(options);
+      //localStorage.setItem('token', response._data.token)
+    },
+    onResponseError({ request, response, options }) {
+      // Handle the response errors
+      console.log(response);
+    },
+  })
+}
+
+/*
+function async() =
+ 
+);
+ */
+/*
+  await fetch("http://localhost:8080/login", {
+        mode: "no-cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json" ,
+        },
+        body: JSON.stringify({
+          username: '207220361',
+          password: '1234'
+        })
+      }).then(Response => console.log(Response.headers.get('Authorization')));
+      */
+</script>
 
 <template>
   <v-app class="PrincipalContainer">
     <!--Defino lo elementos basados en el figma-->
-    <div class="align-center" style="width: fit-content; align-self: center;">
+    <div class="align-center" style="width: fit-content; align-self: center">
       <NuxtLink to="/">
         <img
           class="Imglogo"
@@ -44,6 +91,7 @@ export default {
             placeholder="Rut"
             prepend-inner-icon="mdi-account"
             variant="solo-filled"
+            v-model="rut"
           ></v-text-field>
         </div>
 
@@ -53,13 +101,18 @@ export default {
             placeholder="Contraseña"
             prepend-inner-icon="mdi-key-variant"
             variant="solo-filled"
+            v-model="pass"
             :type="visible ? 'text' : 'password'"
             :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
             @click:append-inner="visible = !visible"
           ></v-text-field>
         </div>
-
-        <v-btn class="buttonConfirm"> INGRESAR</v-btn>
+        <div class="text-h">
+          {{ data }}
+        </div>
+        <v-btn type="submit" class="buttonConfirm" @click="submit">
+          INGRESAR
+        </v-btn>
         <router-link to="/register" style="color: black; text-decoration: none"
           ><p><strong>¿Eres Nuevo?</strong></p></router-link
         >
@@ -114,7 +167,7 @@ export default {
 }
 
 @media only screen and (max-width: 900px) {
-  .opsContainerLogin{
+  .opsContainerLogin {
     max-height: 90% !important;
     display: flex;
     flex-direction: column;
@@ -140,5 +193,4 @@ export default {
   justify-self: center;
   align-self: center;
 }
-
 </style>

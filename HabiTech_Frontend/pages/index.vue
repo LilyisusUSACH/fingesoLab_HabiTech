@@ -4,6 +4,7 @@ const usuario = {
   fullName: "John Doe",
   email: "john.doe@doe.com",
 };
+
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const usuario = {
       </v-app-bar>
       <v-main>
         <v-row class="mt-1" justify="center" align="center">
-          <v-card class="opsContainer" elevation="5"> </v-card>
+          <v-card class="opsContainer" elevation="5">  </v-card>
         </v-row>
       </v-main>
     </v-container>

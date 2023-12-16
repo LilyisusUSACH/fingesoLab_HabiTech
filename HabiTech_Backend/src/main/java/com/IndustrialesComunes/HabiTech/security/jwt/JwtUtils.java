@@ -37,18 +37,18 @@ public class JwtUtils {
     // Generar token de acceso
     public String generateAccessToken(String username){
 
-        return Jwts.builder()
+        /*return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + Long.parseLong(timeExpiration)))
                 .signWith(getSignatureKey())
-                .compact();
-        /*return Jwts.builder()
+                .compact();*/
+        return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(timeExpiration)))
                 .signWith(getSignatureKey(), SignatureAlgorithm.HS256)
-                .compact();*/
+                .compact();
     }
 
     // Validar Token de acceso

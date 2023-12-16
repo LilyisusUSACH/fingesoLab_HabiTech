@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 public class  PrincipalController {
 
@@ -30,8 +31,8 @@ public class  PrincipalController {
     private RoleRepository roleRepository;
 
     @GetMapping("/hello")
-    public String hello(){
-        return "Hello World Not Secured";
+    public ResponseEntity<?> hello(){
+        return ResponseEntity.ok("Hello world NOT Secured");
     }
 
     @GetMapping("/helloSecured")
