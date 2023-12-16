@@ -9,54 +9,47 @@ export default {
   },
 };
 </script>
+
 <script setup>
+import { ref } from 'vue'
 
-function submit(){
-const {data, pending, error, refresh} = 
- useFetch(
-  "http://localhost:8080/login",
-  {
-    method: "POST",
-    onRequest({ request, options }) {
-      // Set the request headers
-      options.body = JSON.stringify({
-        username: "207220361",
-        password: "1234",
-      });
-    },
-    onRequestError({ request, options, error }) {
-      // Handle the request errors
-    },
-    onResponse({ request, response, options }) {
-      // Process the response data
-      console.log(options);
-      //localStorage.setItem('token', response._data.token)
-    },
-    onResponseError({ request, response, options }) {
-      // Handle the response errors
-      console.log(response);
-    },
-  })
+const incorrect = ref(false)
+
+function submit(rut, pass) {
+  const { data, pending, error, refresh } = useFetch(
+    "http://127.0.0.1:8080/login",
+    {
+      method: "POST",
+      onRequest({ request, options }) {
+        // Set the request headers
+        options.body = JSON.stringify({
+          username: rut,
+          password: pass,
+        });
+      },
+      onRequestError({ request, options, error }) {
+        // Handle the request errors
+      },
+      onResponse({ request, response, options }) {
+        // Process the response data
+        const token = response._data.token
+
+        if(response.status != 200){
+          if(response.status == 403){
+            incorrect.value = true;
+            return;
+          }
+        }
+        localStorage.setItem('token', token)
+        incorrect.value = false;
+        navigateTo('/home')
+      },
+      onResponseError({ request, response, options }) {
+        // Handle the response errors
+      },
+    }
+  );
 }
-
-/*
-function async() =
- 
-);
- */
-/*
-  await fetch("http://localhost:8080/login", {
-        mode: "no-cors",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json" ,
-        },
-        body: JSON.stringify({
-          username: '207220361',
-          password: '1234'
-        })
-      }).then(Response => console.log(Response.headers.get('Authorization')));
-      */
 </script>
 
 <template>
@@ -107,10 +100,13 @@ function async() =
             @click:append-inner="visible = !visible"
           ></v-text-field>
         </div>
-        <div class="text-h">
-          {{ data }}
-        </div>
-        <v-btn type="submit" class="buttonConfirm" @click="submit">
+        <div v-if="incorrect"
+        class="textFail mb-1">
+                  <v-icon style="color: red" icon="mdi-alert"></v-icon>
+
+                  Credenciales invalidas, intente nuevamente.
+                </div>
+        <v-btn type="submit" class="buttonConfirm" @click="submit(rut,pass)">
           INGRESAR
         </v-btn>
         <router-link to="/register" style="color: black; text-decoration: none"
@@ -160,13 +156,19 @@ function async() =
   border-radius: 20px;
 }
 
+.textFail{
+  font-weight: bold;
+  text-align: center;
+  color: red;
+}
+
 @media only screen and (min-width: 600px) and (max-width: 900px) {
   .footerVue {
     font-size: 2vw !important;
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 960px) {
   .opsContainerLogin {
     max-height: 90% !important;
     display: flex;
@@ -174,6 +176,10 @@ function async() =
     justify-content: space-evenly;
     width: 95% !important;
     border-radius: 20px;
+  }
+
+  .textReg {
+    font-size: small;
   }
 
   .footerVue {
