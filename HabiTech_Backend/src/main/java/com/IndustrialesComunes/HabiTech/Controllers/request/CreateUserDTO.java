@@ -26,5 +26,11 @@ public class CreateUserDTO {
     private Integer rut;
 
     @NotBlank
+    private String name;
+
+    @NotBlank
+    private String lastName;
+
+    @NotBlank
     private String password;
 }

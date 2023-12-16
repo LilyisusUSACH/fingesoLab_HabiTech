@@ -2,14 +2,145 @@
 export default {
   data() {
     return {
-      userData: {
-        rut: " ",
-        pass: " ",
-      },
+      rut: "",
+      email: "",
+      nombre: "",
+      lastName: "",
+      pass: "",
       visible: false,
+
+      password: "",
+      password1: "",
+      successPass: false,
+      successPass1: false,
+
+      invalidRut: false,
     };
   },
+  methods: {
+    // Valida el rut con su cadena completa "XXXXXXXX-X"
+    validaRut: function (rutCompleto) {
+      rutCompleto = rutCompleto.replace("‐", "-");
+      if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto)) return false;
+      var tmp = rutCompleto.split("-");
+      var digv = tmp[1];
+      var rut = tmp[0];
+      if (digv == "K") digv = "k";
+
+      this.invalidRut = this.dv(rut) == digv;
+      console.log("digito Correcto ".concat(this.dv(rut)));
+      return this.invalidRut;
+    },
+
+    dv: function (T) {
+      var M = 0,
+        S = 1;
+      for (; T; T = Math.floor(T / 10))
+        S = (S + (T % 10) * (9 - (M++ % 6))) % 11;
+
+        return S ? S - 1 : "k";
+    },
+
+    required: function (value) {
+      if (value) {
+        return true;
+      } else {
+        return "Debe ingresar sus datos.";
+      }
+    },
+    correctRut: function () {
+      if (this.invalidRut) {
+        return true;
+      } else {
+        return "Debe ingresar un RUT valido.";
+      }
+    },
+    min6: function (value) {
+      if (value.length >= 6) {
+        return true;
+      } else {
+        return "Minimo 6 caracteres";
+      }
+    },
+    matchingPasswords: function () {
+      if (this.password === this.password1) {
+        return true;
+      } else {
+        return "Diferentes contraseñas";
+      }
+    },
+  },
+  computed: {
+    passRule: function () {
+      if (this.password === "") {
+        // field is empty
+        this.successPass = false;
+        return "";
+      } else if (this.min6(this.password) === true) {
+        // password ok
+        this.successPass = true;
+        return "mdi-check";
+      } else {
+        // password wrong
+        this.successPass = false;
+        return "mdi-close";
+      }
+    },
+    passRule1: function () {
+      if (this.password1 === "") {
+        // field is empty
+        this.successPass1 = false;
+        return "";
+      } else if (
+        this.min6(this.password1) === true &&
+        this.matchingPasswords() === true
+      ) {
+        // password ok
+        this.successPass1 = true;
+        return "mdi-check";
+      } else {
+        // password wrong
+        this.successPass1 = false;
+        return "mdi-close";
+      }
+    },
+  },
 };
+</script>
+<script setup>
+// /register
+
+function submit(email,name,lastName,rut,password) {
+  const nrut = parseInt(rut.replace("-",""));
+  const pwd = password.toString();
+  const { data, pending, error, refresh } = useFetch(
+    "http://127.0.0.1:8080/register",
+    {
+      method: "POST",
+      onRequest({ request, options }) {
+        // Set the request headers
+        options.body = JSON.stringify({
+          password: pwd,
+          email: email,
+          name: name,
+          lastName: lastName,
+          rut: nrut,
+        });
+      },onRequestError({ request, options, error }) {
+        // Handle the request errors
+      },
+      onResponse({ request, response, options }) {
+        // Process the response data
+        if(response.status == 200){
+          navigateTo('/login')
+        }
+      },
+      onResponseError({ request, response, options }) {
+        // Handle the response errors
+      },
+    }
+  );
+}
 </script>
 
 <template>
@@ -54,6 +185,7 @@ export default {
                   placeholder="Nombre"
                   prepend-inner-icon="mdi-account"
                   variant="solo-filled"
+                  v-model="nombre"
                 >
                 </v-text-field>
                 <v-text-field
@@ -62,6 +194,7 @@ export default {
                   placeholder="Apellidos"
                   prepend-inner-icon="mdi-account"
                   variant="solo-filled"
+                  v-model="lastName"
                 ></v-text-field>
 
                 <v-text-field
@@ -70,7 +203,16 @@ export default {
                   placeholder="Rut"
                   prepend-inner-icon="mdi-account"
                   variant="solo-filled"
-                ></v-text-field>
+                  v-model="rut"
+                  :rules="[correctRut, required]"
+                  v-on:blur="validaRut(rut)"
+                ><template v-slot:append-inner>
+                  <v-icon 
+                  :icon="invalidRut ? 'mdi-check' : 'mdi-close'"
+                  :color="invalidRut ? 'green' : 'red' "
+                  />
+                </template>
+              </v-text-field>
 
                 <v-text-field
                   class="inputsFormReg"
@@ -78,6 +220,7 @@ export default {
                   placeholder="Email"
                   prepend-inner-icon="mdi-account"
                   variant="solo-filled"
+                  v-model="email"
                 ></v-text-field>
 
                 <v-text-field
@@ -89,7 +232,19 @@ export default {
                   :type="visible ? 'text' : 'password'"
                   :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                   @click:append-inner="visible = !visible"
-                ></v-text-field>
+                  v-model="password"
+                  :rules="[required, min6]"
+                  :counter="6"
+                >
+                  <template v-slot:append-inner>
+                    <v-icon v-if="successPass" color="green">{{
+                      passRule
+                    }}</v-icon>
+                    <v-icon v-if="!successPass" color="red">{{
+                      passRule
+                    }}</v-icon>
+                  </template>
+                </v-text-field>
 
                 <v-text-field
                   class="inputsFormReg"
@@ -100,11 +255,22 @@ export default {
                   :type="visible ? 'text' : 'password'"
                   :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                   @click:append-inner="visible = !visible"
-                ></v-text-field>
-
-                <v-btn type="submit" class="buttonConfirmReg"
-                  >Enviar solicitud</v-btn
+                  v-model="password1"
+                  :rules="[matchingPasswords]"
+                  :counter="6"
                 >
+                  <template v-slot:append-inner>
+                    <v-icon v-if="successPass1" color="green">{{
+                      passRule1
+                    }}</v-icon>
+                    <v-icon v-if="!successPass1" color="red">{{
+                      passRule1
+                    }}</v-icon>
+                  </template>
+                </v-text-field>
+
+                <v-btn type="submit" class="buttonConfirmReg" @click="submit(email,nombre,lastName,rut,password)"
+                  >Enviar solicitud</v-btn>
               </v-form>
               <v-divider class="mt-4 mb-2"></v-divider>
               <NuxtLink to="/login" style="color: black; text-decoration: none">
@@ -224,7 +390,6 @@ export default {
   .buttonConfirmReg {
     margin-bottom: 2vh;
   }
-
 }
 
 .footerVue {

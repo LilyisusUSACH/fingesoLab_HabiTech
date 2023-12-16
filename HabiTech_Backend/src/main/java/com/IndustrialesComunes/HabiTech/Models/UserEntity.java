@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
@@ -32,11 +33,21 @@ public class UserEntity {
     @NonNull
     @Min(0)
     @Max(999999999)
+    @Column(unique=true)
     private Integer rut;
 
     @NotBlank
     @Size(max = 9)
+    @Column(unique=true)
     private String username;
+
+    @NotBlank
+    @Size(max = 30)
+    private String name;
+
+    @NotBlank
+    @Size(max = 30)
+    private String lastName;
 
     @NotBlank
     private String password;

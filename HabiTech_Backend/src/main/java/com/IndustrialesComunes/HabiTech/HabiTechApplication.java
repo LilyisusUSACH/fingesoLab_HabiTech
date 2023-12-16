@@ -33,6 +33,8 @@ public class HabiTechApplication {
 					.email("alejesuscrts@gmail.com")
 					.username("207220361")
 					.rut(207220361)
+					.name("pedro")
+					.lastName("perez")
 					.password(passwordEncoder.encode("1234"))
 					.roles(
 							Set.of(
