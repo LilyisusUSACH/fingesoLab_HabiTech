@@ -1,11 +1,5 @@
 package com.IndustrialesComunes.HabiTech.Controllers;
 
-import com.IndustrialesComunes.HabiTech.DataModels.CommunityDataModel;
-import com.IndustrialesComunes.HabiTech.DataModels.UserDataModel;
-import com.IndustrialesComunes.HabiTech.Models.Building;
-import com.IndustrialesComunes.HabiTech.Models.Community;
-import com.IndustrialesComunes.HabiTech.Models.User;
-import com.IndustrialesComunes.HabiTech.Models.userTypes.Residente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +10,7 @@ import java.util.List;
 @RestController
 
 public class communityController {
-    @Autowired
+  /*  @Autowired
     private CommunityDataModel comDM;
 
     @RequestMapping(value = "api/comunidades", method = RequestMethod.GET)
@@ -47,4 +41,4 @@ public class communityController {
     public List<Building> getBuildsByCom(@PathVariable Long id) {
         return comDM.getBuildByID(id);
     }
-}
+*/}

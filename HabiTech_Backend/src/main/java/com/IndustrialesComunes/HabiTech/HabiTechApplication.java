@@ -30,47 +30,19 @@ public class HabiTechApplication {
 	CommandLineRunner init(){
 		return args -> {
 			UserEntity userEntity = UserEntity.builder()
-					.email("santi@gmail.com")
-					.username("santi")
+					.email("alejesuscrts@gmail.com")
+					.username("207220361")
+					.rut(207220361)
 					.password(passwordEncoder.encode("1234"))
 					.roles(
 							Set.of(
 									RoleEntity.builder()
-											.name(ERole.valueOf(ERole.ADMIN.name()))
+											.name(ERole.valueOf(ERole.SADMIN.name()))
 											.build()
 							)
 					)
 					.build();
-
-			UserEntity userEntity2 = UserEntity.builder()
-					.email("santi2@gmail.com")
-					.username("ale")
-					.password(passwordEncoder.encode("1234"))
-					.roles(
-							Set.of(
-									RoleEntity.builder()
-											.name(ERole.valueOf(ERole.USER.name()))
-											.build()
-							)
-					)
-					.build();
-			UserEntity userEntity3 = UserEntity.builder()
-					.email("santi2@gmail.com")
-					.username("dani")
-					.password(passwordEncoder.encode("1234"))
-					.roles(
-							Set.of(
-									RoleEntity.builder()
-											.name(ERole.valueOf(ERole.INVITED.name()))
-											.build()
-							)
-					)
-					.build();
-
 			userRepository.save(userEntity);
-			userRepository.save(userEntity2);
-			userRepository.save(userEntity3);
-
 		};
 	}
 

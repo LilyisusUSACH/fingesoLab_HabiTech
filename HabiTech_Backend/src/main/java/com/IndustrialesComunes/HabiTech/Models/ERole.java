@@ -1,7 +1,9 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
 public enum ERole {
-    ADMIN,
-    USER,
-    INVITED
+    SADMIN,
+    GADMIN,
+    CADMIN,
+    RESIDENTE,
+    ANALISTA
 }

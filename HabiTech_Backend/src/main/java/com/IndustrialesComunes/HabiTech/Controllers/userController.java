@@ -1,8 +1,5 @@
 package com.IndustrialesComunes.HabiTech.Controllers;
 
-import com.IndustrialesComunes.HabiTech.DataModels.UserDataModel;
-import com.IndustrialesComunes.HabiTech.Models.User;
-import com.IndustrialesComunes.HabiTech.Models.userTypes.Residente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +10,7 @@ import java.util.List;
 
 @RestController
 public class userController {
-    @Autowired
+  /*  @Autowired
     private UserDataModel userDM;
 
     @RequestMapping(value = "api/", method = RequestMethod.GET)
@@ -45,6 +42,16 @@ public class userController {
         userDM.registrar(usuario);
         return usuario.toString();
     }
-    // en la funcion pedir @RequestHeader(value="Authorization") String token - para confirmar sesion iniciada
+*/
+/*
+    private void registrarse(){}
+    public void iniciarSesion(User usuario){}
+    public void cerrarSesion(){}
+    public void updateInformation(){}
+    public void reestablecerPass(){}
+    public void verAvisos(){}
+    public void verMensajes(){}
+    public void enviarMensaje(){}*/
+
 
 }

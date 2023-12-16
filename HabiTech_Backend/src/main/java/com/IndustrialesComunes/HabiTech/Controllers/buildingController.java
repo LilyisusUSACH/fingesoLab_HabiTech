@@ -1,9 +1,5 @@
 package com.IndustrialesComunes.HabiTech.Controllers;
 
-import com.IndustrialesComunes.HabiTech.DataModels.BuildingDataModel;
-import com.IndustrialesComunes.HabiTech.DataModels.UserDataModel;
-import com.IndustrialesComunes.HabiTech.Models.Building;
-import com.IndustrialesComunes.HabiTech.Models.Community;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +10,7 @@ import java.util.List;
 
 @RestController
 public class buildingController {
-    @Autowired
+  /*  @Autowired
     private BuildingDataModel buildDM;
 
     @RequestMapping(value = "api/buildings", method = RequestMethod.GET)
@@ -44,5 +40,5 @@ public class buildingController {
     public Building registrarBuilding(@RequestBody Building build){
         return buildDM.addBuilding(build);
     }
-
+*/
 }

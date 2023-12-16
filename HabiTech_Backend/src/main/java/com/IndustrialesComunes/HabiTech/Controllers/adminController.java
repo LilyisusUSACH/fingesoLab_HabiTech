@@ -1,13 +1,12 @@
-package com.IndustrialesComunes.HabiTech.Models.userTypes;
+package com.IndustrialesComunes.HabiTech.Controllers;
 
+import org.springframework.web.bind.annotation.RestController;
 
-import com.IndustrialesComunes.HabiTech.Models.User;
-import jakarta.persistence.*;
+@RestController
+public class adminController {
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name ="rol")
-public abstract class Admin extends User{
+/*
+
     public void ingresarGastoComun(){}
     public void registrarUsuarios(){}
     public void aprobarSolicitudUsuarios(){}
@@ -21,5 +20,7 @@ public abstract class Admin extends User{
     public void modificarComite(){}
     public void agregarAnalistaComunidad(){}
     public void modificarAnalistaComunidad(){}
+*/
+
 
 }
