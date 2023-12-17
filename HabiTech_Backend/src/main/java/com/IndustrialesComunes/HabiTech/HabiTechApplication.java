@@ -45,6 +45,23 @@ public class HabiTechApplication {
 					)
 					.build();
 			userRepository.save(userEntity);
+
+			UserEntity userEntity2 = UserEntity.builder()
+					.email("alejesuscrts@gmail.com")
+					.username("207220311")
+					.rut(207220311)
+					.name("pedro")
+					.lastName("perez")
+					.password(passwordEncoder.encode("1234"))
+					.roles(
+							Set.of(
+									RoleEntity.builder()
+											.name(ERole.valueOf(ERole.GADMIN.name()))
+											.build()
+							)
+					)
+					.build();
+			userRepository.save(userEntity2);
 		};
 	}
 

@@ -5,6 +5,7 @@ import com.IndustrialesComunes.HabiTech.Controllers.request.CreateUserDTO;
 import com.IndustrialesComunes.HabiTech.Models.ERole;
 import com.IndustrialesComunes.HabiTech.Models.RoleEntity;
 import com.IndustrialesComunes.HabiTech.Models.UserEntity;
+import com.IndustrialesComunes.HabiTech.repositories.RoleRepository;
 import com.IndustrialesComunes.HabiTech.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class noLoggedController {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
@@ -37,9 +41,11 @@ public class noLoggedController {
                 .email(createUserDTO.getEmail())
                 .roles(
                         Set.of(
-                                RoleEntity.builder()
-                                        .name(ERole.valueOf(ERole.RESIDENTE.name()))
-                                        .build()
+                                roleRepository.findByName(ERole.valueOf(ERole.RESIDENTE.name())).orElse(
+                                        RoleEntity.builder()
+                                                .name(ERole.valueOf(ERole.RESIDENTE.name()))
+                                                .build()
+                                )
                         )
                 )
                 .build();

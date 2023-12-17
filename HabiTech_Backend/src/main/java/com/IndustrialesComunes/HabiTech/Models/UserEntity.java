@@ -1,6 +1,7 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -59,6 +60,7 @@ public class UserEntity {
     // Solo asignar a residentes
 
     @OneToMany(mappedBy = "residente")
+    @JsonIgnore
     private List<UnidadEntity> unidades = new ArrayList<>();
 
     @OneToMany(mappedBy = "residente")

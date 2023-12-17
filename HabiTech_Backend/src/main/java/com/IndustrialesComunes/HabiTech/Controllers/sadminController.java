@@ -43,9 +43,11 @@ public class sadminController {
                 .email(createUserDTO.getEmail())
                 .roles(
                         Set.of(
-                                RoleEntity.builder()
+                                roleRepository.findByName(ERole.valueOf(ERole.RESIDENTE.name())).orElse(
+                                        RoleEntity.builder()
                                         .name(ERole.valueOf(ERole.GADMIN.name()))
                                         .build()
+                                )
                         )
                 )
                 .build();

@@ -35,21 +35,20 @@ public class CommunityEntity{
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BuildingEntity> edificios = new ArrayList<>();
 
-
-
-
-
     //    public void addEdificio(Building build){
     //        edificios.add(build);
     //    }
 
-    /*@JsonGetter("edificios")
+    @JsonGetter("edificios")
     public String edificios(){
+        if(this.edificios == null){
+            return "";
+        }
         String str = "[";
-        for(Building build: edificios){
+        for(BuildingEntity build: edificios){
             str += build.getId() + " ";
         }
         str += "]";
         return str;
-    }*/
+    }
 }
