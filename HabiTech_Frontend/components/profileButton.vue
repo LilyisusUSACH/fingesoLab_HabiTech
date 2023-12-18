@@ -32,7 +32,10 @@ export default {
             </v-avatar>
             <h3>{{ user.fullName }}</h3>
             <v-divider class="my-3"></v-divider>
-            <v-btn rounded variant="text"> Mi perfil </v-btn>
+            <NuxtLink to="/userProfile">
+              <v-btn rounded variant="text"> Mi perfil </v-btn>
+            </NuxtLink>
+           
             <v-divider class="my-3"></v-divider>
             <v-btn rounded variant="text"> Cerrar sesion </v-btn>
           </div>
