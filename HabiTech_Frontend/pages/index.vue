@@ -21,7 +21,7 @@ const usuario = {
           />
         </NuxtLink>
 
-        <template v-slot:prepend>
+        <template v-slot:append>
         <NuxtLink to="/login" style="color: black">
           <v-btn> iniciar sesion </v-btn>
         </NuxtLink>

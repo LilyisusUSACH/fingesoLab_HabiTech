@@ -3,12 +3,17 @@ package com.IndustrialesComunes.HabiTech.Controllers;
 import com.IndustrialesComunes.HabiTech.Models.ComprobanteEntity;
 import com.IndustrialesComunes.HabiTech.Models.DeudaEntity;
 import com.IndustrialesComunes.HabiTech.Models.OrdenPagoEntity;
+import com.IndustrialesComunes.HabiTech.Models.UserEntity;
 import com.IndustrialesComunes.HabiTech.repositories.ComprobanteRepository;
 import com.IndustrialesComunes.HabiTech.repositories.DeudaRepository;
 import com.IndustrialesComunes.HabiTech.repositories.OrdenPagoRepository;
 import com.IndustrialesComunes.HabiTech.repositories.UserRepository;
 import com.IndustrialesComunes.HabiTech.security.jwt.JwtUtils;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -69,16 +75,30 @@ public class residenteController {
 
                 List<DeudaEntity> deudas = deudaRepository.findAllByResidenteUsername(username);
 
-                double amount = 0;
+                float amount = 0;
+                LocalDate ultimaFecha = null;
 
                 if(!deudas.isEmpty()){
+                    ultimaFecha = deudas.get(0).getFechaTermino();
+
                     for(DeudaEntity deuda : deudas){
                         if(!deuda.getPagado()  &&  deuda.getFechaInicio().isBefore( LocalDate.now())){
                             amount += deuda.getValue();
+                            if(ultimaFecha.isAfter(deuda.getFechaTermino())){
+                                ultimaFecha = deuda.getFechaTermino();
+                            }
                         }
                     }
                 }
-                return ResponseEntity.ok(amount);
+                ObjectNode Jamount = new ObjectNode(JsonNodeFactory.instance);
+                Jamount.put("amount",amount );
+                if(ultimaFecha != null){
+                    Jamount.put("fecha", ultimaFecha.toString());
+                }else{
+                    Jamount.put("fecha", LocalDate.now().toString());
+                }
+
+                return ResponseEntity.ok(Jamount);
             }
         }
         return ResponseEntity.badRequest().body("Requiere haber una sesion activa para obtener la deuda del usuario");
@@ -96,6 +116,37 @@ public class residenteController {
         return ResponseEntity.badRequest().body("Requiere haber una sesion activa para obtener la deuda del usuario");
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<?> getUser(@RequestHeader("Authorization") String tokenHeader){
+        if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
+            String token = tokenHeader.substring(7);
+            if (jwtUtils.isTokenValid(token)) {
+                String username = jwtUtils.getUsernameFromToken(token);
+                Optional<UserEntity> userEntity = userRepository.findByUsername(username);
+                ObjectNode user = new ObjectNode(JsonNodeFactory.instance);
+                if(userEntity.isPresent()){
+                    user.put("name", userEntity.get().getName());
+                    user.put("lastName", userEntity.get().getLastName());
+                    user.put("email",userEntity.get().getEmail());
+                }
+                return ResponseEntity.ok(user);
+            }
+        }
+        return ResponseEntity.badRequest().body("Requiere haber una sesion activa para obtener la deuda del usuario");
+    }
+
+    @GetMapping("/comprobantes/2")
+    public ResponseEntity<?> getComprobantes(@RequestHeader("Authorization") String tokenHeader, @PathVariable int cantidad){
+        if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
+            String token = tokenHeader.substring(7);
+            if (jwtUtils.isTokenValid(token)) {
+                String username = jwtUtils.getUsernameFromToken(token);
+                return ResponseEntity.ok( comprobanteRepository.findTop2ByResidenteUsername(username));
+            }
+        }
+        return ResponseEntity.badRequest().body("Requiere haber una sesion activa para obtener la deuda del usuario");
+    }
+
     @PostMapping("/pagar")
     public ResponseEntity<?> pagar(@RequestHeader("Authorization") String tokenHeader) {
         if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
@@ -106,7 +157,7 @@ public class residenteController {
 
                 List<DeudaEntity> deudaVigente = new ArrayList<>();
 
-                double amount = 0;
+                float amount = 0;
                 if(!deudas.isEmpty()){
                     for(DeudaEntity deuda : deudas){
                         if(!deuda.getPagado()  &&  deuda.getFechaInicio().isBefore( LocalDate.now())){

@@ -1,5 +1,4 @@
 <script setup>
-import { ref, onMounted } from "vue";
 
 const token = localStorage.getItem("token");
 
@@ -11,10 +10,29 @@ const data = await $fetch("http://127.0.0.1:8080/user/montoActual", {
 
 data.amount = Math.round(data.amount)
 
+const deudas = await $fetch("http://localhost:8080/user/deudaActual", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  }
+});
+
 const info = await $fetch("http://127.0.0.1:8080/user/user", {
   headers: {
     Authorization: `Bearer ${token}`,
   }
+});
+
+const lista = []
+
+deudas.forEach(deuda => {
+    const deudaFormat = {
+        cuota: deuda.cuota + "/" + deuda.gastoComunAsociado.cuotas,
+        descripcion: deuda.gastoComunAsociado.description,
+        monto: Math.round(deuda.value),
+        fechaInicio: deuda.fechaInicio,
+        fechaTermino: deuda.fechaTermino
+    }
+    lista.push(deudaFormat);
 });
 
 </script>
@@ -23,7 +41,7 @@ const info = await $fetch("http://127.0.0.1:8080/user/user", {
   <v-layout class="hpage">
     <v-container>
       <navBar
-        :Pname= "info.name + ' ' + info.lastName"
+      :Pname= "info.name + ' ' + info.lastName"
         Prole="residente"
         :Pemail=info.email
         drawer="!drawer"
@@ -32,14 +50,8 @@ const info = await $fetch("http://127.0.0.1:8080/user/user", {
         <div>
           <v-row> </v-row>
           <v-row justify="center">
-            <v-col cols="auto">
-              <card :amount=data.amount :vencimiento=data.fecha> </card>
-            </v-col>
-          </v-row>
-          <v-row justify="center">
-            <v-col cols="auto">
-              <cardPagos :amount=data.amount :vencimiento=data.fecha align="center"></cardPagos>
-            </v-col>
+            <div height="50px"></div>
+            <DetailDeuda :total=data.amount :lista_desc=lista></DetailDeuda>
           </v-row>
         </div>
       </v-main>
@@ -49,11 +61,11 @@ const info = await $fetch("http://127.0.0.1:8080/user/user", {
 
 <style>
 .hpage {
-  background-color: #F2F2F2 !important;
-  height: 100%;
+  background-color: #f2f2f2 !important;
+  height: 100vh;
 }
 
-@media only screen and (max-width: 682px){
+@media only screen and (max-width: 682px) {
   .hpage {
     height: 100%;
   }

@@ -161,7 +161,7 @@ public class gadminController {
     private void generarDeudas( GastoComunEntity gastoComun ){
 
         LocalDate fechaActual = gastoComun.getFecha().minusMonths(1).minusDays(1) ; // Para hacer las pruebas
-        double Dtotal = gastoComun.getTotal();
+        float Dtotal = gastoComun.getTotal();
 
         for(int i = 0; i < gastoComun.getCuotas(); i++){
             for (UnidadEntity unidad : gastoComun.getEdificio().getUnidades()){
@@ -171,6 +171,7 @@ public class gadminController {
                         .cuota(i+1)
                         .fechaInicio(fechaActual.plusMonths(i))
                         .fechaTermino(fechaActual.plusMonths(i + 1))
+                        .gastoComunAsociado(gastoComun)
                         .residente(unidad.getResidente())
                         .build();
                 deudaRepository.save(deuda);

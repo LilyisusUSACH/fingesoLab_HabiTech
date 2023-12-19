@@ -31,7 +31,9 @@ const formatPrice = (value) => {
     </v-row>
     <v-row class="btns-container" justify="space-around">
       <v-col cols="7" sm="auto">
+        <nuxt-link to="/detailDeuda">
         <v-btn class="btns" style="border-color: #E91E63 !important" color=#E91E63>Ver detalle</v-btn>
+      </nuxt-link>
       </v-col>
       <v-col cols="4" sm="auto">
         <v-btn class="btns" style="border-color: #4CAF50 !important" color="green">Pagar</v-btn>
@@ -71,7 +73,7 @@ const formatPrice = (value) => {
 
 .myCard {
   overflow: initial;
-  margin-top: 20px !important;
+  margin-top: 10px !important;
   margin-left: 10px;
   margin-right: 10px;
   min-width: 4.5cm;

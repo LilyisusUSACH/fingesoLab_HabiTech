@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class adminController {
-/*
 
+    /*
     public void ingresarGastoComun(){}
     public void registrarUsuarios(){}
     public void aprobarSolicitudUsuarios(){}
@@ -19,7 +19,7 @@ public class adminController {
     public void modificarComite(){}
     public void agregarAnalistaComunidad(){}
     public void modificarAnalistaComunidad(){}
-*/
+    */
 
 
 }

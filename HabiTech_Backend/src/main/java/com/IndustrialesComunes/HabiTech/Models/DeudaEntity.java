@@ -24,7 +24,7 @@ public class DeudaEntity {
 
     private Boolean pagado;
 
-    private double value;
+    private float value;
 
     private int cuota;
 

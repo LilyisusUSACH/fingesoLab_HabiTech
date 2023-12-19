@@ -14,6 +14,12 @@ export default {
 };
 </script>
 
+<script setup>
+function logout() {
+  localStorage.clear();
+}
+</script>
+
 <template>
   <v-row class = "mainAcc" justify="center">
     <v-menu min-width="70px" rounded>
@@ -33,11 +39,14 @@ export default {
             <h3>{{ user.fullName }}</h3>
             <v-divider class="my-3"></v-divider>
             <NuxtLink to="/userProfile">
-              <v-btn rounded variant="text"> Mi perfil </v-btn>
+              <v-btn rounded variant="text" color="black"> Mi perfil </v-btn>
             </NuxtLink>
            
             <v-divider class="my-3"></v-divider>
-            <v-btn rounded variant="text"> Cerrar sesion </v-btn>
+            <NuxtLink to="/">
+              <v-btn rounded variant="text" color="black" @click="logout"> Cerrar sesion </v-btn>
+            </NuxtLink>
+
           </div>
         </v-card-text>
       </v-card>

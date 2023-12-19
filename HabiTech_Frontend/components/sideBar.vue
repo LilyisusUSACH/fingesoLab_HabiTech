@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(["role", "name"]);
+const props = defineProps(["role", "name","email"]);
 /*
     Separacion por rol asi cada rol tiene sus propias opciones
 */
@@ -35,10 +35,20 @@ const options = {
 <template>
   <v-list lines="one" width="fit-content">
     <v-list-item class = "avatarIcon"
-      prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
       :title="name"
-      :subtitle="name.replace(/\s/g, '') + '@gmail.com'"
-    ></v-list-item>
+      :subtitle="email"
+    >
+    <template  v-slot:prepend>
+      <v-avatar>
+      <img
+        src="../public/assets/icon.jpg"
+        alt="John"
+        class="center"
+        style="width: 180%;"
+      />
+    </v-avatar>
+    </template>
+  </v-list-item>
   </v-list>
 
   <v-divider :thickness="1" class="border-opacity-50" ></v-divider>
