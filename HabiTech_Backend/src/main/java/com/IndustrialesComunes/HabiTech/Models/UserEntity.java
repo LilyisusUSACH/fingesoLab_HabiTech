@@ -1,6 +1,7 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -72,5 +74,12 @@ public class UserEntity {
     @OneToMany(mappedBy = "receiver",targetEntity = MessageEntity.class)
     private List<MessageEntity> messagesReceived  = new ArrayList<>();
 
-
+    @JsonGetter("unidades")
+    private List<Long> unidades(){
+        List<Long> ids = new ArrayList<>();
+        for (UnidadEntity unidad:unidades){
+            ids.add(unidad.getId());
+        }
+        return ids;
+    }
 }

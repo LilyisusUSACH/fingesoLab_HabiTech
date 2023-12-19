@@ -1,5 +1,6 @@
 package com.IndustrialesComunes.HabiTech.Controllers.request;
 
+import com.IndustrialesComunes.HabiTech.Models.EEUnitType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -9,19 +10,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUnidadDTO {
+public class CreateUnidadExtraDTO {
 
-    private Long edificioID;
-
-    @NotBlank
-    private String name;
-
-    private Long residenteID;
-
-    @NotBlank
-    private String ubication;
+    private EEUnitType type;
 
     @Min(0)
-    private int m2soloUnidad;
+    private int m2;
 
+    @Min(0)
+    private Long unidadID;
 }

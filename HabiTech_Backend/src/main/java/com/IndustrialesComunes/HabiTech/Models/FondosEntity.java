@@ -22,7 +22,6 @@ public class FondosEntity {
 
     private String nameFondo;
 
-
     @ManyToOne
     @JoinColumn(name = "community_id")
     @JsonIgnore

@@ -26,6 +26,8 @@ public class UnidadEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     private String ubication;
 
     private int m2 = 0;
@@ -34,6 +36,7 @@ public class UnidadEntity{
 
     @ManyToOne
     @JoinColumn(name = "edificio_id")
+    @JsonIgnore
     private BuildingEntity edificio;
 
     @ManyToOne
@@ -49,7 +52,7 @@ public class UnidadEntity{
         this.prorrateo = 0;
     }
 */
-    @JsonGetter("residente_id")
+    @JsonGetter("residente")
     private ObjectNode getResidenteInfo(){
         ObjectNode node = new ObjectNode(JsonNodeFactory.instance);
         node.put("id", residente.getId());
@@ -57,4 +60,24 @@ public class UnidadEntity{
         node.put("email",residente.getEmail());
         return node;
     }
+
+    @JsonGetter("edificio")
+    private ObjectNode getBuildingInfo(){
+        ObjectNode node = new ObjectNode(JsonNodeFactory.instance);
+        node.put("id", edificio.getId());
+        node.put("m2",edificio.getM2());
+        node.put("community_id",edificio.getCommunity().getId());
+        return node;
+    }
+
+    public int getTotalM2(){
+        int m2 = 0;
+        if(extra != null){
+            for(ExtraUnidadEntity xtra : extra){
+                m2 += xtra.getM2e();
+            }
+        }
+        return getM2() + m2;
+    }
+
 }

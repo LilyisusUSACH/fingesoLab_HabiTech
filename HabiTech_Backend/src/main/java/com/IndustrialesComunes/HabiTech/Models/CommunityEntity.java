@@ -20,10 +20,11 @@ public class CommunityEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     private String ubication;
 
     private int nOfBuilds;
-
 
     @OneToMany(mappedBy = "community", cascade = CascadeType.ALL)
     public List<FondosEntity> fondos = new ArrayList<>();
@@ -31,13 +32,8 @@ public class CommunityEntity{
     @OneToMany(mappedBy = "community", cascade = CascadeType.ALL)
     @JsonIgnore
     @Getter
-    //@JsonManagedReference
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<BuildingEntity> edificios = new ArrayList<>();
 
-    //    public void addEdificio(Building build){
-    //        edificios.add(build);
-    //    }
+    private List<BuildingEntity> edificios = new ArrayList<>();
 
     @JsonGetter("edificios")
     public String edificios(){

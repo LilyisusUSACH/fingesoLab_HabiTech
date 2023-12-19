@@ -1,9 +1,13 @@
 package com.IndustrialesComunes.HabiTech.Models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -20,21 +24,34 @@ public class DeudaEntity {
 
     private Boolean pagado;
 
-    private int value;
+    private double value;
 
-    private Time fechaInicio;
+    private int cuota;
 
-    private Time fechaTermino;
+    private LocalDate fechaInicio;
 
-   @ManyToMany(mappedBy = "deudasGeneradas")
-    public List<GastoComunEntity> gastosComunesAsociados;
+    private LocalDate fechaTermino;
+
+    @ManyToOne
+    @JoinColumn(name = "gastoComunAsociado")
+    public GastoComunEntity gastoComunAsociado;
 
     @ManyToOne
     @JoinColumn(name = "residente_id")
+    @JsonIgnore
     private UserEntity residente;
+
+    @ManyToOne
+    @JoinColumn(name = "ordenPago")
+    @JsonIgnore
+    private OrdenPagoEntity ordenPago;
+
     public double calcularInteresMorosidad(){
         return getValue()*1.02;
     }
 
-    public void generarOrdenPago(){}
+    @JsonGetter("residente_id")
+    private Long residenteID(){
+        return getResidente().getId();
+    }
 }

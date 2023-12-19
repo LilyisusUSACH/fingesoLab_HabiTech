@@ -10,35 +10,40 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "unidadExtra")
-public class ExtraUnidadEntity {
+@Table(name = "comprobante")
+public class ComprobanteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private EEUnitType type;
+    private double valor;
 
-    private int m2e;
+    private LocalDate fechaPago;
 
     @ManyToOne
-    @JoinColumn(name = "unidad_id")
+    @JoinColumn(name = "residente_id")
     @JsonIgnore
-    private UnidadEntity unidad;
+    private UserEntity residente;
 
-    @JsonGetter("unidad_id")
-    private ObjectNode getUnidadInfo(){
+    @OneToOne
+    @JoinColumn(name = "ordenPago_id")
+    private OrdenPagoEntity ordenPago;
+
+    @JsonGetter("residente")
+    private ObjectNode getResidenteInfo(){
         ObjectNode node = new ObjectNode(JsonNodeFactory.instance);
-        node.put("id", unidad.getId());
-        node.put("name", unidad.getName());
-        node.put("ubication", unidad.getUbication());
-        node.put("unidad_m2", unidad.getM2());
-        node.put("unidad_Total_m2", unidad.getTotalM2());
+        node.put("id", residente.getId());
+        node.put("rut",residente.getRut());
+        node.put("email",residente.getEmail());
         return node;
     }
+
 }

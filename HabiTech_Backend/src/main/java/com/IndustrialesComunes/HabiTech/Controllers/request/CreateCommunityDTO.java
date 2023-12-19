@@ -11,4 +11,7 @@ import lombok.NoArgsConstructor;
 public class CreateCommunityDTO {
     @NotBlank
     private String ubication;
+
+    @NotBlank
+    private String name;
 }

@@ -18,6 +18,9 @@ public class CreateBuildingDTO{
     @NotBlank
     private String ubication;
 
+    @NotBlank
+    private String name;
+
     @Min(0)
     private Long id_com;
 }
